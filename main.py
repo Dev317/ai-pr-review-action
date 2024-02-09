@@ -8,7 +8,7 @@ def main():
     auth = Auth.Token(os.environ['GITHUB_TOKEN'])
     github = Github(auth=auth)
     repo = github.get_repo(f"{os.environ['PR_REPO']}")
-    pr = repo.get_pull(os.environ['PR_NUMBER'])
+    pr = repo.get_pull(int(os.environ['PR_NUMBER']))
 
     llm = ChatOpenAI(api_key=os.environ['OPENAI_API_KEY'])
     prompt = ChatPromptTemplate.from_messages([
