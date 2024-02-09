@@ -33,10 +33,10 @@ runs:
 
     - name: Pass inputs to environment variables
       run: |
-          export OPENAI_API_KEY=${{ inputs.OPENAI_API_KEY }}
-          export GITHUB_TOKEN=${{ inputs.GITHUB_TOKEN }}
-          export PR_REPO=${{ inputs.PR_REPO }}
-          export PR_NUMBER=${{ inputs.PR_NUMBER }}
+          echo "OPENAI_API_KEY=${{ inputs.OPENAI_API_KEY }}" >> $env:OPENAI_API_KEY
+          echo "GITHUB_TOKEN=${{ inputs.GITHUB_TOKEN }}" >> $env:GITHUB_TOKEN
+          echo "PR_REPO=${{ inputs.PR_REPO }}" >> $env:PR_REPO
+          echo "PR_NUMBER=${{ inputs.PR_NUMBER }}" >> $env:PR_NUMBER
       shell: bash
 
     - name: Running PR review
