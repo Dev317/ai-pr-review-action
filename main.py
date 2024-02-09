@@ -5,12 +5,19 @@ from langchain_core.prompts import ChatPromptTemplate
 
 def main():
 
+    if os.getenv('GITHUB_TOKEN') is None:
+        raise ValueError("GITHUB_TOKEN is not set")
+
+    if os.getenv('OPENAI_API_KEY') is None:
+        raise ValueError("OPENAI_API_KEY is not set")
+
+
     auth = Auth.Token(os.environ['GITHUB_TOKEN'])
     github = Github(auth=auth)
-    repo = github.get_repo(f"{os.environ['REPO_OWNER']}/{os.environ['REPO_NAME']}")
+    repo = github.get_repo(f"{os.environ['PR_REPO']}")
     pr = repo.get_pull(os.environ['PR_NUMBER'])
 
-    llm = ChatOpenAI()
+    llm = ChatOpenAI(api_key=os.environ['OPENAI_API_KEY'])
     prompt = ChatPromptTemplate.from_messages([
         ("system", "You are professional software engineer who is doing a code review for a pull request. Use proper markdown format on variables, file names and code blocks. Please answer in short point forms."),
         ("user", "{input}")

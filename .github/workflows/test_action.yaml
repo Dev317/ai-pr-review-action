@@ -1,0 +1,21 @@
+name: Test Action
+on:
+  pull_request:
+
+
+jobs:
+  get-num-square:
+    runs-on: ubuntu-latest
+    name: Returns the number square
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run AI PR review
+        id: ai-assisted-pr-review
+        uses: ./
+        with:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
