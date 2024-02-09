@@ -5,13 +5,6 @@ from langchain_core.prompts import ChatPromptTemplate
 
 def main():
 
-    if os.getenv('GITHUB_TOKEN', '') == '':
-        raise ValueError("GITHUB_TOKEN is not set")
-
-    if os.getenv('OPENAI_API_KEY', '') == '':
-        raise ValueError("OPENAI_API_KEY is not set")
-
-
     auth = Auth.Token(os.environ['GITHUB_TOKEN'])
     github = Github(auth=auth)
     repo = github.get_repo(f"{os.environ['PR_REPO']}")
