@@ -41,3 +41,7 @@ runs:
         PR_REPO: ${{ inputs.PR_REPO }}
         PR_NUMBER: ${{ inputs.PR_NUMBER }}
       shell: bash
+
+branding:
+  icon: check
+  color: blue
