@@ -1,0 +1,46 @@
+name: 'AI-assisted Pull Request Review'
+description: 'A GitHub Action that provides comments to a pull request by leveraging OpenAI GPT-3.5'
+inputs:
+  OPENAI_API_KEY:
+    description: 'Provide your OpenAI API key'
+    required: true
+
+  GITHUB_TOKEN:
+    description: 'Provide your GitHub token'
+    required: true
+
+  REPO_OWNER:
+    description: 'Provide the repository owner'
+    required: true
+
+  PR_REPO:
+    description: 'Provide the repository name'
+    required: true
+
+  PR_NUMBER:
+    description: 'Provide the pull request number'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install python
+      uses: actions/setup-python@v4
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+      shell: bash
+
+    - name: Pass inputs to environment variables
+      run: |
+              echo "OPENAI_API_KEY=${{ inputs.OPENAI_API_KEY }}" >> $OPENAI_API_KEY
+              echo "GITHUB_TOKEN=${{ inputs.GITHUB_TOKEN }}" >> $GITHUB_TOKEN
+              echo "REPO_OWNER=${{ inputs.REPO_OWNER }}" >> $REPO_OWNER
+              echo "PR_REPO=${{ inputs.PR_REPO }}" >> $PR_REPO
+              echo "PR_NUMBER=${{ inputs.PR_NUMBER }}" >> $PR_NUMBER
+      shell: bash
+
+    - name: Running PR review
+      id: pr-review
+      run: python main.py
+      shell: bash
