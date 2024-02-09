@@ -2,7 +2,7 @@ name: Test Action
 on:
   pull_request:
 
-  workflow_run:
+  workflow_dispatch:
     inputs:
       environment:
         description: 'The environment to run the action in'
