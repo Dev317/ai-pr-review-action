@@ -31,15 +31,13 @@ runs:
       run: pip install -r requirements.txt
       shell: bash
 
-    - name: Pass inputs to environment variables
-      run: |
-          echo "OPENAI_API_KEY=${{ inputs.OPENAI_API_KEY }}" >> $env:OPENAI_API_KEY
-          echo "GITHUB_TOKEN=${{ inputs.GITHUB_TOKEN }}" >> $env:GITHUB_TOKEN
-          echo "PR_REPO=${{ inputs.PR_REPO }}" >> $env:PR_REPO
-          echo "PR_NUMBER=${{ inputs.PR_NUMBER }}" >> $env:PR_NUMBER
-      shell: bash
-
     - name: Running PR review
       id: pr-review
       run: python main.py
+      env:
+        OPENAI_API_KEY: ${{ inputs.OPENAI_API_KEY }}
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+        REPO_OWNER: ${{ inputs.REPO_OWNER }}
+        PR_REPO: ${{ inputs.PR_REPO }}
+        PR_NUMBER: ${{ inputs.PR_NUMBER }}
       shell: bash
