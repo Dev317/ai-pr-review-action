@@ -7,7 +7,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  get-num-square:
+  ai-review:
     runs-on: ubuntu-latest
     name: AI-assisted Review
     steps:
@@ -19,6 +19,6 @@ jobs:
         uses: ./
         with:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
           PR_REPO: ${{ github.repository }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
