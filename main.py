@@ -36,6 +36,8 @@ def main():
 
         llm_result = chain.invoke({"input": user_input.format(changes=pr_changes)})
         pr_comment = f"{llm_result.content}"
+        if position == 0:
+            position = 1
         pr.create_comment(body=pr_comment, commit=last_commit, path=file.filename, position=position)
 
 if __name__ == '__main__':
