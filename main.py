@@ -10,7 +10,10 @@ def main():
     repo = github.get_repo(f"{os.environ['PR_REPO']}")
     pr = repo.get_pull(int(os.environ['PR_NUMBER']))
 
-    llm = ChatOpenAI(api_key=os.environ['OPENAI_API_KEY'])
+    llm = ChatOpenAI(
+        model='gpt-4o-2024-05-13',
+        api_key=os.environ['OPENAI_API_KEY']
+    )
     prompt = ChatPromptTemplate.from_messages([
         ("system", "You are professional software engineer who is doing a code review for a pull request. Use proper markdown format on variables, file names and code blocks. Please answer in short point forms."),
         ("user", "{input}")
